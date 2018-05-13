@@ -21,7 +21,7 @@ First we prepare the environment and load in data as usual:
 ```R
 # Load in files and libraries
 library(dplyr)
-source("PATH_TO_FILE/pipeline.R") #
+source("PATH_TO_FILE/pipeline.R")
 
 # Load / prep data
 airquality <- datasets::airquality
@@ -74,10 +74,32 @@ pipe <- pipeline(nodes=c(node_quarters, node_summary))
 # Pass airquality to the first node
 # By default devmode is set to TRUE, running the validation immediately after activation
 pipe$run(airquality, devmode=F)
+```
 
+Executing `pipe$run(airquality, devmode=F)` should produce a comparable output:
+
+```
+> Joining, by = "Month"
+> [1] "main @ 2018-05-12 20:11:25: join quarters - activated"
+> [1] "main @ 2018-05-12 20:11:25: summarize - activated"
+```
+
+We can then separately test the pipeline:
+
+```R
 # Validate separately
 pipe$test()
+```
 
+Testing the pipeline should produce output similar to below:
+
+```
+> Joining, by = c("Ozone", "Solar.R", "Wind", "Temp", "Month", "Day")
+> [1] "main @ 2018-05-12 20:13:13: join quarters - validation passed"
+> [1] "main @ 2018-05-12 20:13:13: summarize - validation passed"
+```
+
+```R
 # Activations and validations are stored in the nodes
 output <- pipe$nodes[[2]]$state$activation
 test <- pipe$nodes[[2]]$state$validation
@@ -85,5 +107,7 @@ test <- pipe$nodes[[2]]$state$validation
 
 # TODO
 
+[ ] - Documentation
 [ ] - Easier way to access node states from pipeline
 [ ] - Ability to clear activations at the node level for memory management
+[ ] - Getting a "code for methids in class ... not checked for suspicious field assignments" warning
