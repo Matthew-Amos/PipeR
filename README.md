@@ -104,10 +104,3 @@ Testing the pipeline should produce output similar to below:
 output <- pipe$nodes[[2]]$state$activation
 test <- pipe$nodes[[2]]$state$validation
 ```
-
-# TODO
-
-- [ ] Documentation
-- [ ] Easier way to access node states from pipeline
-- [ ] Ability to clear activations at the node level for memory management
-- [ ] Getting a "code for methids in class ... not checked for suspicious field assignments" warning
